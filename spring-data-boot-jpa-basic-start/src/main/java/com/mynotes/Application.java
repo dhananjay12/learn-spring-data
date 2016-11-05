@@ -66,7 +66,7 @@ public class Application {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(Application.class, args);
 		EmployeeReadOnlyRepository repository = context.getBean(EmployeeReadOnlyRepository.class);
-		repository.delete(4);
+		//repository.delete(4);
 		
 		//EmployeeRepository repository = context.getBean(EmployeeRepository.class);
 		//modifyQueries(repository);
