@@ -1,11 +1,13 @@
 package com.mynotes.spring.data.elasticsearch;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +17,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootApplication
 public class SpringDataElasticsearchApplication {	
@@ -90,9 +94,6 @@ public class SpringDataElasticsearchApplication {
 		@Autowired
 		private ElasticsearchOperations elasticsearchOperations;
 		
-		String query="{\"query\":{\"bool\":{\"must\":[{\"term\":{\"body\":\"spring\"}}],\"must_not\":[],\"should\":[]}},\"from\":0,\"size\":10,\"sort\":[],\"aggs\":{}}";
-		
-
 		@Override
 		public void run(String... args) throws Exception {
 			deleteAll();
@@ -101,9 +102,26 @@ public class SpringDataElasticsearchApplication {
 			SearchQuery searchQuery = new NativeSearchQueryBuilder()
 					  .withFilter(QueryBuilders.matchQuery("body", ".*spring*"))
 					  .build();
-					List<Article> articles = elasticsearchOperations.queryForList(searchQuery, Article.class);
-					articles.stream().forEach(obj->System.out.println(obj));
+			List<Article> articles = elasticsearchOperations.queryForList(searchQuery, Article.class);
+			articles.stream().forEach(obj->System.out.println(obj));						
+
+			System.out.println("####### findBy using client ##############");
+			String query="{\"query\":{\"bool\":{\"must\":[{\"term\":{\"body\":\"spring\"}}],\"must_not\":[],\"should\":[]}},\"from\":0,\"size\":10,\"sort\":[],\"aggs\":{}}";
 			
+			SearchResponse response=client.prepareSearch("blog").setTypes("article")
+					.setQuery(query).get();
+			System.out.println(response.toString());
+			ObjectMapper mapper=new ObjectMapper();
+			articles=new ArrayList<Article>();
+			 SearchHit[] hits = response.getHits().getHits();
+		        if (hits != null && hits.length > 0) {
+		            for (SearchHit hit : hits) {
+		            	Article a = mapper.readValue(hit.getSourceAsString(), Article.class);
+		            	articles.add(a);
+		            }
+		        }
+		        
+		        articles.stream().forEach(obj->System.out.println(obj));
 
 		}
 		

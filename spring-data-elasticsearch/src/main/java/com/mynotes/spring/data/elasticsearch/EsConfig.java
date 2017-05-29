@@ -14,24 +14,20 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 @Configuration
 public class EsConfig {
+	
+	@Value("${spring.data.elasticsearch.cluster-name}")
+	private String clusterName;
 
-	@Value("${elasticsearch.host}")
-	private String EsHost;
-
-	@Value("${elasticsearch.port}")
-	private int EsPort;
-
-	@Value("${elasticsearch.clustername}")
-	private String EsClusterName;
+	@Value("${spring.data.elasticsearch.cluster-nodes}")
+	private String nodeAndPort;	
 
 	@Bean
 	public Client client() throws Exception {
-
-		Settings esSettings = Settings.settingsBuilder().put("cluster.name", EsClusterName).build();
-
-		// https://www.elastic.co/guide/en/elasticsearch/guide/current/_transport_client_versus_node_client.html
+		String host=nodeAndPort.substring(0, nodeAndPort.indexOf(":"));
+		int port = Integer.parseInt(nodeAndPort.substring(nodeAndPort.indexOf(":")+1));
+		Settings esSettings = Settings.settingsBuilder().put("cluster.name", clusterName).build();
 		return TransportClient.builder().settings(esSettings).build()
-				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
+				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
 	}
 
 	@Bean
