@@ -27,33 +27,21 @@ public class CandidateController {
     @Autowired
     private CandidateRepository candidateRepository;
 
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Candidate add(@RequestBody Candidate candidate) {
+        return candidateRepository.save(candidate);
+    }
+
     @GetMapping
     public List<Candidate> getAll() {
         return candidateRepository.findAll();
     }
 
-    @GetMapping("/searchByEmail")
-    public Candidate searchByEmail(@RequestParam(name = "email") String email) {
-        return candidateRepository.findByEmail(email)
+    @GetMapping(value = "/{id}")
+    public Candidate getOne(@PathVariable String id) {
+        return candidateRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException());
-
-    }
-
-    @GetMapping("/searchByExp")
-    public List<Candidate> searchByExp(@RequestParam(name = "expFrom") Double expFrom, @RequestParam(name = "expTo", required = false) Double expTo) {
-        List<Candidate> result = new ArrayList<>();
-        if (expTo != null) {
-            result = candidateRepository.findByExpBetween(expFrom, expTo);
-        } else {
-            result = candidateRepository.findByExpGreaterThanEqual(expFrom);
-        }
-        return result;
-    }
-
-    @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Candidate add(@RequestBody Candidate candidate) {
-        return candidateRepository.save(candidate);
     }
 
     @PutMapping(value = "/{id}")
@@ -72,6 +60,24 @@ public class CandidateController {
         Candidate candidate = candidateRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException());
         candidateRepository.delete(candidate);
+    }
+
+    @GetMapping("/searchByEmail")
+    public Candidate searchByEmail(@RequestParam(name = "email") String email) {
+        return candidateRepository.findByEmail(email)
+            .orElseThrow(() -> new ResourceNotFoundException());
+
+    }
+
+    @GetMapping("/searchByExp")
+    public List<Candidate> searchByExp(@RequestParam(name = "expFrom") Double expFrom, @RequestParam(name = "expTo", required = false) Double expTo) {
+        List<Candidate> result = new ArrayList<>();
+        if (expTo != null) {
+            result = candidateRepository.findByExpBetween(expFrom, expTo);
+        } else {
+            result = candidateRepository.findByExpGreaterThanEqual(expFrom);
+        }
+        return result;
     }
 
 }
