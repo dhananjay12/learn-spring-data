@@ -40,10 +40,6 @@ public class Article {
         return title;
     }
 
-    public ZonedDateTime getDateCreated() {
-        return dateCreated;
-    }
-
     public String getText() {
         return text;
     }
@@ -56,12 +52,16 @@ public class Article {
         this.title = title;
     }
 
-    public void setDateCreated(ZonedDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
     public void setText(String text) {
         this.text = text;
+    }
+
+    public ZonedDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(ZonedDateTime created) {
+        this.created = created;
     }
 
 }
