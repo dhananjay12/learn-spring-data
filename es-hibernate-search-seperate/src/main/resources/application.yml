@@ -1,0 +1,26 @@
+# Connection url for the database "netgloo_blog"
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useSSL=false
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        search:
+          default:
+            indexmanager: elasticsearch
+            elasticsearch:
+              host: http://127.0.0.1:9200
+              index_schema_management_strategy: drop-and-create
+              required_index_status: yellow
+#          directory_provider: filesystem
+#          indexBase: /test_es
+#          indexmanager: near-real-time
+         
+        
+
+
