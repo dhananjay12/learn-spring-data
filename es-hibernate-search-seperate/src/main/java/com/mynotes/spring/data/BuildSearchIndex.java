@@ -11,7 +11,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class BuildSearchIndex implements ApplicationListener<ApplicationReadyEvent> {
     private static final Logger log = LoggerFactory.getLogger(BuildSearchIndex.class);
 

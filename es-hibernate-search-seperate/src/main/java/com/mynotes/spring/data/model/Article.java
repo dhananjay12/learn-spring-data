@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity(name = "article")
-@Indexed
+@Indexed(index="article")
 public class Article {
 
     @Id
