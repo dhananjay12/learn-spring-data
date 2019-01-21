@@ -1,7 +1,7 @@
 # Connection url for the database "netgloo_blog"
 spring:
   datasource:
-    url: jdbc:mysql://10.20.14.154:3306/test_es?useSSL=false
+    url: jdbc:mysql://localhost:3306/test?useSSL=false
     username: root
     password: root
   jpa:
