@@ -27,6 +27,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		
 
 		<!-- persistence -->
 
@@ -43,11 +45,15 @@
 			<artifactId>hibernate-search-orm</artifactId>
 			<version>${hibernatesearch.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-elasticsearch</artifactId>
 			<version>${hibernatesearch.version}</version>
 		</dependency>
+		<dependency>
+	      <groupId>org.hibernate</groupId>
+	      <artifactId>hibernate-entitymanager</artifactId>
+	    </dependency> -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

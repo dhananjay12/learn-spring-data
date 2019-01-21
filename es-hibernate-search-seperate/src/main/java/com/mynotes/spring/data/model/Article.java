@@ -12,8 +12,9 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Indexed
+
 @Entity(name = "article")
+@Indexed
 public class Article {
 
     @Id
