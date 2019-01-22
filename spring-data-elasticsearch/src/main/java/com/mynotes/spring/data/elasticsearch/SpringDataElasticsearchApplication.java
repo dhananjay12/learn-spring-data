@@ -108,20 +108,20 @@ public class SpringDataElasticsearchApplication {
 			System.out.println("####### findBy using client ##############");
 			String query="{\"query\":{\"bool\":{\"must\":[{\"term\":{\"body\":\"spring\"}}],\"must_not\":[],\"should\":[]}},\"from\":0,\"size\":10,\"sort\":[],\"aggs\":{}}";
 			
-			SearchResponse response=client.prepareSearch("blog").setTypes("article")
-					.setQuery(query).get();
-			System.out.println(response.toString());
-			ObjectMapper mapper=new ObjectMapper();
-			articles=new ArrayList<Article>();
-			 SearchHit[] hits = response.getHits().getHits();
-		        if (hits != null && hits.length > 0) {
-		            for (SearchHit hit : hits) {
-		            	Article a = mapper.readValue(hit.getSourceAsString(), Article.class);
-		            	articles.add(a);
-		            }
-		        }
-		        
-		        articles.stream().forEach(obj->System.out.println(obj));
+//			SearchResponse response=client.prepareSearch("blog").setTypes("article")
+//					.setQuery(query).get();
+//			System.out.println(response.toString());
+//			ObjectMapper mapper=new ObjectMapper();
+//			articles=new ArrayList<Article>();
+//			 SearchHit[] hits = response.getHits().getHits();
+//		        if (hits != null && hits.length > 0) {
+//		            for (SearchHit hit : hits) {
+//		            	Article a = mapper.readValue(hit.getSourceAsString(), Article.class);
+//		            	articles.add(a);
+//		            }
+//		        }
+//		        
+//		        articles.stream().forEach(obj->System.out.println(obj));
 
 		}
 		

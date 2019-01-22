@@ -13,13 +13,13 @@ public class Article {
 	@Id
     private String id;
 
-    @MultiField(mainField = @Field(type = FieldType.String))
+    @MultiField(mainField = @Field)
     private String title;
 
-    @Field(type = FieldType.String)
+    @Field
     private String body;
 
-    @Field(type = FieldType.String)
+    @Field
     private String tags;
     
     public Article() {
