@@ -1,0 +1,17 @@
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+  config:
+    activate:
+      on-profile: h2

@@ -1,12 +1,29 @@
-*.class
+**/target/
+/mysql-ssl/test
+!.mvn/wrapper/maven-wrapper.jar
+.mvn
+mvn*
+.DS_Store
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeansrequest.getHeader("X-
+.sts4-cache
+.
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
