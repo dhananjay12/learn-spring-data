@@ -1,18 +1,46 @@
-version: "3.7"
+version: "3.8"
 # https://docs.docker.com/compose/compose-file/
 
 services:
   mysql:
-    build: mysql-ssl
-    image: mysql-ssl-local
-    command: --max-allowed-packet=512M --performance-schema=FALSE --transaction-isolation=READ-COMMITTED --init-connect='SET collation_connection=utf8mb4_unicode_ci' --init-connect='SET NAMES utf8mb4;' --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  --max-connections=500
+    image: mysql/mysql-server:8.0.21
+    container_name: mysql
+    command: [ "mysqld",
+               "--character-set-server=utf8mb4",
+               "--collation-server=utf8mb4_unicode_ci",
+               "--bind-address=0.0.0.0",
+               "--log-error-verbosity",
+               "--require_secure_transport=ON",
+               "--ssl-ca=/etc/certs/root-ca.pem",
+               "--ssl-cert=/etc/certs/server-cert.pem",
+               "--ssl-key=/etc/certs/server-key.pem",
+               "--default_authentication_plugin=mysql_native_password"]
+    restart: always
     environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: spring
+      MYSQL_PASSWORD: spring
       MYSQL_DATABASE: testdb
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - ./mysql-ssl/config:/etc/mysql/conf.d
+      - type: bind
+        source: ./mysql-ssl/certs
+        target: /etc/certs/
+#      - type: bind
+#        source: ./mysql-ssl/sql
+#        target: /docker-entrypoint-initdb.d
+#      - type: bind
+#        source: ./mysql-ssl/config
+#        target: /etc/mysql/conf.d
+#  spring-app:
+#    image: dhananjay12/spring-data-tomcat-pool-example:0.0.1
+#    container_name: spring
+#    environment:
+#      spring.datasource.url: jdbc:mysql://mysql:3306/testdb?useSSL=true
+#      spring.datasource.username: root
+#      spring.datasource.password: root
+#    ports:
+#      - "8080:8080"
 
 
