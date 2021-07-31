@@ -1,4 +1,6 @@
 **/target/
+*.pem
+**/*.pem
 /mysql-ssl/test
 !.mvn/wrapper/maven-wrapper.jar
 .mvn
