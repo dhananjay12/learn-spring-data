@@ -29,16 +29,31 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/wpdb
-    username: wpuserssl
+    #verifyServerCertificate=true&useSSL=true&&requireSSL=true
+    url: jdbc:mysql://localhost:3306/testdb?verifyServerCertificate=true&useSSL=true&&requireSSL=true
+    username: ssluser
     #password: r00tr00t
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      data-source-properties:
+    tomcat:
+      db-properties:
         useSSL: true
         sslMode: VERIFY_CA
-        trustCertificateKeyStoreUrl: "file:/Users/dhananjay/Downloads/mysql-ssl-docker-master/certs/truststore"
+        trustCertificateKeyStoreUrl: "file:/Users/dhananjay/Documents/Github/learn-spring-data/mysql-ssl/java/client-keystore.p12"
         trustCertificateKeyStorePassword: "mypass"
+
+# To enable ssl debug pass -Djavax.net.debug=ssl:handshake:verbose
+
+# Or Put following as VM arguments
+#  -Djavax.net.ssl.trustStore=/Users/dhananjay/Documents/Github/learn-spring-data/mysql-ssl/java/client-keystore.p12
+#  -Djavax.net.ssl.trustStorePassword=mypass
+
+# For Hikari equivalent properties are
+#    hikari:
+#      data-source-properties:
+#        useSSL: true
+#        sslMode: VERIFY_CA
+#        trustCertificateKeyStoreUrl: "file:/Users/dhananjay/Documents/Github/learn-spring-data/mysql-ssl/java/client-keystore.p12"
+#        trustCertificateKeyStorePassword: "mypass"
   jpa:
     database-platform: org.hibernate.dialect.MySQLInnoDBDialect
     database: mysql

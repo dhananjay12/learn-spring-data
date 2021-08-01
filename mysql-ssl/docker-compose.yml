@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   mysql:
-    image: mysql/mysql-server:8.0.21
+    image: mysql:5.7
     container_name: mysql
     command: [ "mysqld",
                "--character-set-server=utf8mb4",
@@ -14,7 +14,8 @@ services:
                "--ssl-ca=/etc/certs/root-ca.pem",
                "--ssl-cert=/etc/certs/server-cert.pem",
                "--ssl-key=/etc/certs/server-key.pem",
-               "--default_authentication_plugin=mysql_native_password"]
+               "--default_authentication_plugin=mysql_native_password"
+             ]
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -25,14 +26,19 @@ services:
       - "3306:3306"
     volumes:
       - type: bind
-        source: ./mysql-ssl/certs
+        source: ./certs
         target: /etc/certs/
-#      - type: bind
-#        source: ./mysql-ssl/sql
-#        target: /docker-entrypoint-initdb.d
-#      - type: bind
-#        source: ./mysql-ssl/config
-#        target: /etc/mysql/conf.d
+      - type: bind
+        source: ./config/init.sql
+        target: /docker-entrypoint-initdb.d/setup.sql
+  mysql-client:
+    build: ./client
+    image: mysql-client-local
+    container_name: mysql-client
+    volumes:
+      - type: bind
+        source: ./certs
+        target: /etc/certs
 #  spring-app:
 #    image: dhananjay12/spring-data-tomcat-pool-example:0.0.1
 #    container_name: spring

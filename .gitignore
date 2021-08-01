@@ -1,6 +1,9 @@
 **/target/
+multitenancy/
 *.pem
 **/*.pem
+*.p12
+**/*.p12
 /mysql-ssl/test
 !.mvn/wrapper/maven-wrapper.jar
 .mvn

@@ -5,9 +5,9 @@ mkdir -p certs
 find ./certs -name '*.pem' -delete
 
 OPENSSL_SUBJ="/C=NL/ST=Noord Holland/L=Amsterdam"
-OPENSSL_CA="${OPENSSL_SUBJ}/CN=fake-CA"
-OPENSSL_SERVER="${OPENSSL_SUBJ}/CN=fake-server"
-OPENSSL_CLIENT="${OPENSSL_SUBJ}/CN=fake-client"
+OPENSSL_CA="${OPENSSL_SUBJ}/CN=dummy-CA"
+OPENSSL_SERVER="${OPENSSL_SUBJ}/CN=dummy-server"
+OPENSSL_CLIENT="${OPENSSL_SUBJ}/CN=dummy-client"
 
 # Create Fake CA Certificate
 
