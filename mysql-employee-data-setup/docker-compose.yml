@@ -6,6 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: employees
+    command: --default-storage-engine=InnoDB
     ports:
       - "3306:3306"
     volumes:
