@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0.32
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: employees
+    ports:
+      - "3306:3306"
+    volumes:
+      #Map the local directory to the container directory. This will not import the data into the container.
+      - ./initdb:/initdb
+    healthcheck:
+      test: mysqladmin ping --silent
+      interval: 10s
+      timeout: 5s
+      retries: 5  
