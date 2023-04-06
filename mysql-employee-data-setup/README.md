@@ -13,7 +13,9 @@ Execute the script to create the database:
 docker exec -it mysql-container /bin/bash
 ```
 
-Run the script:
+The test data used in this project is from [datacharmer/test_db](https://github.com/datacharmer/test_db).
+
+Run the script to create the database:
 
 ```bash
 mysql -u root -proot < employees.sql
